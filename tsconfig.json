@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "skipLibCheck": true,
+        "module": "commonjs",
+        "target": "es2017",
+        "lib": [
+            "es2018",
+            "dom",
+            "esnext.asynciterable"
+        ],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist/server",
+        "rootDirs": [            
+            "src"
+        ],
+        "baseUrl": "."        
+    },
+    "include": [        
+        "src/**/*"
+    ],
+    "exclude": [
+        "*.spec.ts"
+    ]
+}

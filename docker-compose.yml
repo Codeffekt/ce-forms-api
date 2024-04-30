@@ -1,0 +1,15 @@
+version: '3'
+services:
+  ce-forms-db:
+    container_name: "ce-forms-db"
+    image: postgres
+    environment:
+      POSTGRES_DB: ce-forms
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  ce-forms-api:
+    container_name: "ce-forms-api"
+    image: ce-forms-api
+    build: .
+    depends_on: [ce-forms-db]
+    ports: ["3000:3000"]
