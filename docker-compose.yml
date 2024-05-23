@@ -4,12 +4,27 @@ services:
     container_name: "ce-forms-db"
     image: postgres
     environment:
-      POSTGRES_DB: ce-forms
+      POSTGRES_DB: ce_forms
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ce_forms"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   ce-forms-api:
+    image: "jeanpul/ce-forms-api:1.0.0"  
     container_name: "ce-forms-api"
-    image: ce-forms-api
-    build: .
-    depends_on: [ce-forms-db]
+    depends_on: 
+      ce-forms-db:
+        condition: service_healthy
     ports: ["3000:3000"]
+  ce-forms-manager:
+    image: "jeanpul/ce-forms-manager:0.0.1"
+    container_name: "ce-forms-manager"
+    depends_on: [ce-forms-api]      
+    environment:
+      API_URL: "http://localhost:3000"
+      APP_VERSION: "0.0.1"
+    ports: ["4202:80"]
+
