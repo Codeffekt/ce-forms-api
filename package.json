@@ -1,6 +1,6 @@
 {
   "name": "ce-forms-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Backend for CeForms",
   "main": "index.js",
   "scripts": {
@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/codeffekt/ce-forms-api#readme",
   "dependencies": {
-    "@codeffekt/ce-core-data": "^1.1.2",
+    "@codeffekt/ce-core-data": "^1.1.8",
     "@codeffekt/ce-events-data": "^1.1.0",
-    "@codeffekt/ce-node-express": "^1.10.0",
+    "@codeffekt/ce-node-express": "^1.11.0",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
