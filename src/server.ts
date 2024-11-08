@@ -1,4 +1,4 @@
-import { AssetsApiServer, CeService, ExpressApplication, FormsApiServer } from "@codeffekt/ce-node-express";
+import { AssetsApiServer, CeService, EventsApiServer, ExpressApplication, FormsApiServer } from "@codeffekt/ce-node-express";
 
 async function bootstrap() {
 
@@ -8,6 +8,7 @@ async function bootstrap() {
         routers: [
             CeService.get(FormsApiServer),
             CeService.get(AssetsApiServer),
+            CeService.get(EventsApiServer),
         ]
     });
 
