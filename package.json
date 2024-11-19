@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/codeffekt/ce-forms-api#readme",
   "dependencies": {
-    "@codeffekt/ce-core-data": "^1.2.1",
+    "@codeffekt/ce-core-data": "^1.2.2",
     "@codeffekt/ce-events-data": "^1.1.0",
-    "@codeffekt/ce-node-express": "^1.12.2",
+    "@codeffekt/ce-node-express": "^1.12.3",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
