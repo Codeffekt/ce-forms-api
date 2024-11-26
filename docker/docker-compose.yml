@@ -1,0 +1,61 @@
+services:
+  ce-forms-rabbitmq:
+    image: rabbitmq:4.0.3-management-alpine
+    container_name: ce-forms-rabbitmq
+    ports:      
+      - "127.0.0.1:5672:5672"
+  ce-forms-db:
+    image: postgres
+    container_name: ce-forms-db
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    ports:      
+      - "127.0.0.1:4432:5432"
+    healthcheck :
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5    
+  ce-forms-api:
+    build: ..
+    container_name: ce-forms-api
+    depends_on:
+      ce-forms-db:
+        condition: service_healthy       
+      ce-forms-rabbitmq:
+        condition: service_started
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      - PGHOST=ce-forms-db
+      - PG_ADMIN_USER=postgres
+      - PG_ADMIN_PASSWD=postgres
+      - PG_ADMIN_DB=postgres
+      - MSG_URL=amqp://guest:guest@ce-forms-rabbitmq:5672
+  ce-forms-manager:
+    image: ce-forms-manager
+    container_name: ce-forms-manager
+    ports: 
+      - "127.0.0.1:4202:80"
+    depends_on:
+      ce-forms-api:
+        condition: service_started
+    environment:
+      - API_URL=http://localhost:3000
+      - APP_VERSION=1.0.0
+  ce-common-processes:
+    image: ce-common-processes
+    container_name: ce-common-processes
+    depends_on:
+      ce-forms-api:
+        condition: service_started
+    environment:
+      - PGHOST=ce-forms-db
+      - PG_ADMIN_USER=postgres
+      - PG_ADMIN_PASSWD=postgres
+      - PG_ADMIN_DB=postgres
+      - MSG_URL=amqp://guest:guest@ce-forms-rabbitmq:5672
+
+
