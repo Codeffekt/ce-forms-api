@@ -19,7 +19,7 @@ services:
       timeout: 5s
       retries: 5    
   ce-forms-api:
-    build: ..
+    image: ce-forms-api
     container_name: ce-forms-api
     depends_on:
       ce-forms-db:
@@ -57,17 +57,7 @@ services:
       - PG_ADMIN_PASSWD=postgres
       - PG_ADMIN_DB=postgres
       - MSG_URL=amqp://guest:guest@ce-forms-rabbitmq:5672
-  py-ce-forms-api:
-    image: py-ce-forms-api
-    container_name: py-ce-forms-api
-    ports: 
-      - "127.0.0.1:8000:8000"
-    depends_on:
-      ce-forms-api:
-        condition: service_started
-    environment:
-      - CE_FORMS_BASE_URL=http://ce-forms-api:3000
-      - CE_FORMS_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJjZS1mb3Jtcy1hcGkiLCJzdWIiOiJjb250YWN0QGNvZGVmZmVrdC5jb20iLCJ1aWQiOiI3MjM5YmQwYy1kMDQwLTRmZTctOGJlYS0wYjY3YzZiNmVhNzMiLCJleHAiOjg1NzU5NDQ2MjIsImlhdCI6MTczMjYzMjYyMn0.-vQm3wyUSTijpbtL01_tRrfdmZCEWW2GGLfAaFYT6Tg
+  
 
 
 

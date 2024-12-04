@@ -1,6 +1,4 @@
-FROM node:18-alpine
-
-# ENV NODE_ENV=production
+FROM node:18.20.4-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
