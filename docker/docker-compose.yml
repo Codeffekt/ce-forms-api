@@ -4,6 +4,7 @@ services:
     container_name: ce-forms-rabbitmq
     ports:      
       - "127.0.0.1:5672:5672"
+      - "127.0.0.1:15672:15672"
   ce-forms-db:
     image: postgres
     container_name: ce-forms-db
@@ -17,7 +18,9 @@ services:
       test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres" ]
       interval: 5s
       timeout: 5s
-      retries: 5    
+      retries: 5 
+    networks:
+      - diag_network  
   ce-forms-api:
     image: ce-forms-api
     container_name: ce-forms-api
@@ -57,7 +60,9 @@ services:
       - PG_ADMIN_PASSWD=postgres
       - PG_ADMIN_DB=postgres
       - MSG_URL=amqp://guest:guest@ce-forms-rabbitmq:5672
-  
+networks:
+  diag_network:
+    external: true
 
 
 
